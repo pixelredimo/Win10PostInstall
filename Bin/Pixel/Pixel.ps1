@@ -46,6 +46,11 @@ Logging "C:\Temp"
 # Create a restore point
 # CreateRestorePoint
 
+# Turn on System Restore
+SystemRestore -Enable
+# Turn off System Restore
+# SystemRestore -Disable
+
 # Disable unnecessary Scheduled Tasks
 DisableScheduledTasks @(
 	"Consolidator",

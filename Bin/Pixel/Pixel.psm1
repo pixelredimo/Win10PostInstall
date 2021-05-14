@@ -577,6 +577,58 @@ function TCPIPv6
 	}
 }
 
+<#
+	.SYNOPSIS
+	Configure System Restore on System Drive normally C:
+
+	.PARAMETER Enable
+	Enable SystemRestore
+
+	.PARAMETER Disable
+	Disable SystemRestore
+
+	.EXAMPLE
+	SystemRestore -Enable
+
+	.EXAMPLE
+	SystemRestore -Disable
+
+	.NOTES
+	Machine-wide
+#>
+function SystemRestore
+{
+	param
+	(
+		[Parameter(
+			Mandatory = $true,
+			ParameterSetName = "Enable"
+		)]
+		[switch]
+		$Enable,
+
+		[Parameter(
+			Mandatory = $true,
+			ParameterSetName = "Disable"
+		)]
+		[switch]
+		$Disable
+	)
+
+	switch ($PSCmdlet.ParameterSetName)
+	{
+		"Enable"
+		{
+			Enable-ComputerRestore -Drive $env:SystemDrive
+		}
+		"Disable"
+		{
+			Disable-ComputerRestore -Drive $env:SystemDrive
+		}
+	}
+}
+
+
 
 # Install Chocolatey (to silently install other applications such as Notepad++)
 function InstallChocolatey

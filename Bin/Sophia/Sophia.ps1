@@ -57,7 +57,7 @@ param
 
 # Clear-Host
 
-$Host.UI.RawUI.WindowTitle = "Windows 10 Sophia Script"
+$Host.UI.RawUI.WindowTitle = "Windows 10 Setup Script"
 
 Remove-Module -Name Sophia -Force -ErrorAction Ignore
 Import-Module -Name $PSScriptRoot\Sophia.psd1 -PassThru -Force
@@ -108,6 +108,11 @@ if ($Functions)
 	Чтобы остановить логгирование, закройте консоль или наберите "Stop-Transcript"
 #>
 Logging "C:\Temp"
+
+# Turn on System Restore
+SystemRestore -Enable
+# Turn off System Restore
+# SystemRestore -Disable
 
 # Create a restore point
 # Создать точку восстановления
