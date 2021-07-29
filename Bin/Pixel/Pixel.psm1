@@ -528,6 +528,69 @@ function AutomaticWindowsUpdate
 
 <#
 	.SYNOPSIS
+	Configure Windows Store Updates
+
+	.PARAMETER Enable
+	Enable Windows Store Update 
+
+	.PARAMETER Disable
+	Disable Windows Store Update 
+
+	.EXAMPLE
+	WindowsStoreUpdate -Enable
+
+	.EXAMPLE
+	WindowsStoreUpdate -Disable
+
+	.NOTES
+	Machine-wide
+
+#>
+function WindowsStoreUpdate
+{
+	param
+	(
+		[Parameter(
+			Mandatory = $true,
+			ParameterSetName = "Enable"
+		)]
+		[switch]
+		$Enable,
+
+		[Parameter(
+			Mandatory = $true,
+			ParameterSetName = "Disable"
+		)]
+		[switch]
+		$Disable
+	)
+
+	switch ($PSCmdlet.ParameterSetName)
+	{
+		"Enable"
+		{
+			Remove-Item -Path HKLM:\SOFTWARE\Policies\Microsoft\WindowsStore -Force -ErrorAction SilentlyContinue
+			Remove-Item -Path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\WindowsStore\WindowsUpdate -Force -ErrorAction SilentlyContinue
+		}
+		"Disable"
+		{
+			if (-not (Test-Path -Path HKLM:\SOFTWARE\Policies\Microsoft\WindowsStore))
+			{
+				New-Item -Path HKLM:\SOFTWARE\Policies\Microsoft\WindowsStore -Force
+			}
+			New-ItemProperty -Path HKLM:\SOFTWARE\Policies\Microsoft\WindowsStore -Name AutoDownload -PropertyType DWord -Value 2 -Force
+
+			if (-not (Test-Path -Path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\WindowsStore\WindowsUpdate))
+			{
+				New-Item -Path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\WindowsStore\WindowsUpdate -Force
+			}
+			New-ItemProperty -Path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\WindowsStore\WindowsUpdate -Name AutoDownload -PropertyType DWord -Value 2 -Force
+		}
+	}
+}
+
+<#
+	.SYNOPSIS
 	Configure Internet Protocol version 6 - TCP/IPv6 Network Setting across all Network Adapters
 
 	.PARAMETER Enable
