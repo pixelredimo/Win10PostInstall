@@ -110,13 +110,13 @@ if ($Functions)
 Logging "C:\Temp"
 
 # Turn on System Restore
-SystemRestore -Enable
+# SystemRestore -Enable
 # Turn off System Restore
 # SystemRestore -Disable
 
 # Create a restore point
 # Создать точку восстановления
-CreateRestorePoint
+# CreateRestorePoint
 
 #region Privacy & Telemetry
 # Disable the DiagTrack service, firewall rule for Unified Telemetry Client Outbound Traffic and block connection

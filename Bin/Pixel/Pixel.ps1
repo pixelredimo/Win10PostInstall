@@ -47,7 +47,7 @@ Logging "C:\Temp"
 # CreateRestorePoint
 
 # Turn on System Restore
-SystemRestore -Enable
+# SystemRestore -Enable
 # Turn off System Restore
 # SystemRestore -Disable
 
